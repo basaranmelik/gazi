@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 //Melik Başaran 22181616013
-//Cuma Kayaoğlu
+//Cuma Kayaoğlu 22181616038
 int asal_mi(int s2)
 {
 	int i;
