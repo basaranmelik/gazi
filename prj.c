@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//Melik Başaran 22181616013
-//Cuma Kayaoğlu 22181616038
+
 int asal_mi(int s2)
 {
 	int i;
@@ -47,6 +46,9 @@ int tambolen(int sayi) {
   };
 
 int main() {
+	char kitap;
+    FILE *kitapDosya=fopen("kitap.txt","r");
+
 	srand(time(NULL));
 	int rastgelesayi=(rand()%10)+1;
 	int tahmin,kacdefa=0;
@@ -57,17 +59,14 @@ int main() {
 	int tam,a;
 	int fakal,b;
 	int asal,c;
-	int d,e,f;
-	int j,l,m;
-	int o,p,r;
-	int v,y,z;
+	int cevap[12];
 
-    int ab,bc,cd,de,ef,fg,gh,hk;
     int sudoku [4][4]={{0,2,0,0},{0,3,0,2},{0,0,1,3},{0,1,2,0}};
     int sudoku_tmz [4][4]={{0,2,0,0},{0,3,0,2},{0,0,1,3},{0,1,2,0}};
     int ij,jk;
     
 	int nesne;
+	int i=0;
 	int bos;
     printf("Bos ve karanlik bir odada uyandiniz. Uzerinizde bir agri ve yara izleriyle ayaga kalktiniz ve onunuzdeki feneri alip odayi incelemeye basladiniz. Bir kitap, iki adet pil ve kilitli bir kapi ilginizi cekti. Etkilesime girmek istediginiz nesneyi seciniz: ");
    do{
@@ -76,11 +75,15 @@ int main() {
 
 if(nesne==1)
     printf("Fenerde kullanmak icin pilleri yaniniza aldiniz.");
-else if(nesne==2)
-    printf("Kitabi aldiniz ve okumaya basladiniz. Eskiden bu evde yasamis bir adamin notlari oldugunu fark ettiniz. Kitapta yazanlard<n bir kesit:\n'Bu evde devletten gizli bir takim deneyler yaptim. Insanligin omrunu uzatacak cesitli ilaclar uretmeyi basardim.\nFakat deneklere yaptiklarimizi ve deneklerin son halini hatirladikca dayanilmaz acilar cekiyorum.\nArtik buna dayanamiyorum. Hayatimi sonlandirmaya karar verdim.\n Eger bir sekilde bu evde uyanmissaniz ve akli dengeniz yerindeyse bir an once odadan cikin.'");
+else if(nesne==2){
+	do{
+		kitap=getc(kitapDosya);
+        printf("%c",kitap);
+    }while(kitap!=EOF);
+}
 else if(nesne==3){
     printf("Kapi sudoku bulmacasiyla kilitlenmis durumda. Kilidi acmak icin bulmacayi cozunuz.\n");
-    for(int kl=0;kl<10;kl++){ // İlk sorulan sudoku for döngüsü yardımıyla tekrar yazılacak. Yanlış bilindiği sürece bu devam edecek.
+    do{ // İlk sorulan sudoku for döngüsü yardımıyla tekrar yazılacak. Yanlış bilindiği sürece bu devam edecek.
 	 
     	
     for(ij=0;ij<4;ij++){
@@ -110,22 +113,14 @@ else if(nesne==3){
     scanf("%d",&sudoku[3][3]);
     printf("\n");
     // 4 3 1 1 4 2 4 3 4
-    if((sudoku[0][0]==4) && (sudoku[0][2]==3) && (sudoku[0][3]==1) && (sudoku[1][0]==1) && (sudoku[1][2]==4) && (sudoku[2][0]==2) &&(sudoku[2][1]==4) && (sudoku[3][0]==3) && (sudoku[3][3]==4))
-    { for(ij=0;ij<4;ij++){ // sudoku doğru bilinirse doğru cevap ekrana yazdırılacak ve döngüden çıkılacak.
-         for(jk=0;jk<4;jk++)
-            printf(" %d",sudoku[ij][jk]);
-			printf("\n");}
-    
-        printf("Kapinin kilidi acildi ve odadan cikmayi basardiniz.");
-    	break;
-	}
     
     
-}
+}while((sudoku[0][0]!=4) || (sudoku[0][2]!=3) || (sudoku[0][3]!=1)|| (sudoku[1][0]!=1) || (sudoku[1][2]!=4) || (sudoku[2][0]!=2) || (sudoku[2][1]!=4) || (sudoku[3][0]!=3) || (sudoku[3][3]!=4));
    }
    }while(nesne!=3); //nesne değişkenine 3 girildiği zaman sudokuyla karşılaşılacak ve doğru bilene kadar devam edilecek. Doğru bilindiğinde bitecek.
-	printf("Etrafa baktiniz ve bircok olu denek ve kilitli dolaplar gordunuz. Beyaz onlukle yatan biri dikkatinizi cekti. \nYanina gittiniz, burada calisan bir doktor oldugunu fark ettiniz.\nOnlukte yazan dolap numarasina dogru ilerlediniz.\nKilidi acmak icin onceden belirlenmis sayiyi dogru tahmin etmeniz gerekmektedir.");
 
+	printf("Kapidan cikmayi basardiniz.\nEtrafa baktiniz ve bircok olu denek ve kilitli dolaplar gordunuz. Beyaz onlukle yatan biri dikkatinizi cekti. \nYanina gittiniz, burada calisan bir doktor oldugunu fark ettiniz.\nOnlukte yazan dolap numarasina dogru ilerlediniz.\nKilidi acmak icin onceden belirlenmis sayiyi dogru tahmin etmeniz gerekmektedir.");
+fclose(kitapDosya);
     	printf("Sayi tahmini \n\n");
 	printf("Lutfen tahmininizi girin:");
 	scanf("%d",&tahmin);
@@ -156,18 +151,16 @@ else if(nesne==3){
 	scanf("%s",&kisi.isim);
     printf("Soy isminizi giriniz:");
 	scanf("%s",&kisi.soyisim);
-for(int gg=0;gg<20;gg++){
+do{
 	printf("Gorevli Numaranizi giriniz: ");
 	scanf("%d",&kisi.numara);
 	printf("Dogum yilinizi giriniz: ");
 	scanf("%d",&kisi.dogum);
     printf("Sifrenizi giriniz: ");
     scanf("%d", &kisi.sifre);
-		if(kisi.sifre==2104 && kisi.dogum==1984 && kisi.numara==21) //verilerin doğru girlip girilmediği if yardımıyla kontrol edilecek yanlışsa sormaya devam edilecek.
-			break;
-		else
-		printf("Yanlis girdiniz, tekrar deneyin.\n");
-}
+		 //verilerin doğru girlip girilmediği if yardımıyla kontrol edilecek yanlışsa sormaya devam edilecek.
+		
+}while(kisi.sifre!=2104 || kisi.dogum!=1984 || kisi.numara!=21);
 
 
 	
@@ -183,7 +176,7 @@ for(int gg=0;gg<20;gg++){
 	scanf("%d",&secim);
 	switch(secim)
 	{
-		case 1:printf("soru1: 120 sayisinin kac tam boleni oldugunu girin:\n");
+		case 1:printf("soru1: 120 sayisinin kac tam boleni oldugunu griin:\n");
 			   scanf("%d",&tam);
 			   a=tambolen(120);
 			   if(a==tam)//16
@@ -218,20 +211,20 @@ for(int gg=0;gg<20;gg++){
 		case 2:printf("Sorular da dogru sikkin yanindaki rakami girin.\n");
 			   printf("Soru1: Galatasaray uefa avrupa ligi kupasini hangi yilda almistir?\n");
 			   printf("1-1999\n2-2000\n3-2001\n4-2002\n");
-			   scanf("%d",&d);
-			   if(d==2){
+			   scanf("%d",&cevap[0]);
+			   if(cevap[0]==2){
 			   	k++;
 			   }
 			   printf("Soru2: 2008 yaz olimpiyatlarina kac spor dahil edildi?\n");
 			   printf("1-30\n2-29\n3-28\n4-27\n");
-			   scanf("%d",&e);
-			   if(e==3){
+			   scanf("%d",&cevap[1]);
+			   if(cevap[1]==3){
 			   	k++;
 			   }
 			   printf("Soru3: NBA de tarihin en uzun galibiyet serisi hangi takima aittir?\n");
 			   printf("1-Los Angeles Lakers\n2-Golden States\n3-Boston Celtics\n4-Chicago Bulls\n");
-			   scanf("%d",&f);
-			   if(f==1){
+			   scanf("%d",&cevap[2]);
+			   if(cevap[2]==1){
 			   	k++;
 			   }
 			    if(k==3)
@@ -247,25 +240,25 @@ for(int gg=0;gg<20;gg++){
 		case 3:	printf("Sorular da dogru sikkin yanindaki rakami girin.\n");
 		        printf("Soru1: Ruzgar gibi gecti filminin unlu yonetmeni kimdir?\n");
 				printf("1-Steven Spielberg\n2-Quentin Tarantino\n3-Victor Fleming\n4-Francis Ford Coppola\n");
-				scanf("%d",&j);
-				if(j==3){
+				scanf("%d",&cevap[3]);
+				if(cevap[3]==3){
 					k++;
 				}	   
 			   	printf("Soru2: Cizgi kahramani Red Kit in kopeginin adi nedir?\n");
 			   	printf("1-Rin Ton Ton\n2-Rin Ten Ten\n3-Rin Tan Tan\n4-Rin Tin Tin\n");
-			   	scanf("%d",&l);
-			   	if(l==4){
+			   	scanf("%d",&cevap[4]);
+			   	if(cevap[4]==4){
 			   		k++;
 			    }
 			    printf("Soru3: Bir tiyatro oyunun da sahnedeki sanatciya hatirlatma yapan kisi?\n");
 			    printf("1-Virtuoz\n2-Figuran\n3-Kondivit\n4-Suflor\n");
-			    scanf("%d",&m);
-			    if(m==4){
+			    scanf("%d",&cevap[5]);
+			    if(cevap[5]==4){
 			    	k++;
 				}
 		         if(k==3)
 			   	{
-			   		printf("Guvenlik gucleri sizi hastaneye goturuyorlar. Basardiniz.\n");
+			   	 	printf("Guvenlik gucleri sizi hastaneye goturuyorlar. Basardiniz.\n");
 					scanf("%d", &bos);
 				   }
 				   else
@@ -276,18 +269,18 @@ for(int gg=0;gg<20;gg++){
 		case 4:	printf("Sorular da dogru sikkin yanindaki rakami girin.\n");
                 printf("Soru1: Tsunami felaketin de en fazla zarar goren guney asya ulkesi hangisidir?\n");
 				printf("1-Endonezya\n2-Srilanka\n3-Tayland\n4-Hindistan\n");
-				scanf("%d",&o);
-				if(o==1)
+				scanf("%d",&cevap[6]);
+				if(cevap[6]==1)
 				k++;
 				printf("Soru2: 2003 yilinda euro vizyon sarki yarismasinda ulkemizi temsil eden ve yarismada birinci gelen sanatcimiz kimdir?\n");
 				printf("1-Grup Athena\n2-Sertap Erener\n3-Sebnem Paker\n4-Ajda Pekkan\n");
-				scanf("%d",&p);
-				if(p==2)
+				scanf("%d",&cevap[7]);
+				if(cevap[7]==2)
 				k++;
 				printf("Soru3: Mustafa Kemal Ataturk un nufusa kayitli il hangisidir?\n");
 				printf("1-Bursa\n2-Ankara\n3-Istanbul\n4-Gaziantep\n");
-				scanf("%d",&r);
-				if(r==4)
+				scanf("%d",&cevap[8]);
+				if(cevap[8]==4)
 				k++; 
 				if(k==3)
 			   	{
@@ -302,18 +295,18 @@ for(int gg=0;gg<20;gg++){
 		case 5:	printf("Sorular da dogru sikkin yanindaki rakami girin.\n");
 			   	printf("Soru1: Osmanlida sadece 93 gun ile en az sure ile yonetimde kalmis olan padisah hangisidir?\n");
 				printf("1-Sultan Vahdettin\n2-II.Osman\n3-V.Murad\n4-II.Mahmud\n");
-				scanf("%d",&v);
-				if(v==3)
+				scanf("%d",&cevap[9]);
+				if(cevap[9]==3)
 				k++;
 				printf("Soru2: Turkiye Cumhuriyetinin ilk basbakani kimdir?\n");
 				printf("1-Ismet Inonu\n2-Celal Bayar\n3-Fethi Okyar\n4-Refik Saydam\n");
-				scanf("%d",&y);
-				if(y==1)
+				scanf("%d",&cevap[10]);
+				if(cevap[10]==1)
 				k++;
 				printf("Soru3: Cift basli kartal hangi Turk devletinin semboludur?\n");
 				printf("1-Cagatay Hanligi\n2-Selcuklular\n3-Uygurlar\n4-Gokturkler\n");
-				scanf("%d",&z);
-				if(z==2)
+				scanf("%d",&cevap[11]);
+				if(cevap[11]==2)
 				k++; 
 				if(k==3)
 			   	{
