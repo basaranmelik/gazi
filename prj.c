@@ -83,7 +83,7 @@ else if(nesne==2){
 }
 else if(nesne==3){
     printf("Kapi sudoku bulmacasiyla kilitlenmis durumda. Kilidi acmak icin bulmacayi cozunuz.\n");
-    do{ // İlk sorulan sudoku for döngüsü yardımıyla tekrar yazılacak. Yanlış bilindiği sürece bu devam edecek.
+    do{ // İlk sorulan sudoku do while döngüsü yardımıyla tekrar yazılacak. Yanlış bilindiği sürece bu devam edecek.
 	 
     	
     for(ij=0;ij<4;ij++){
